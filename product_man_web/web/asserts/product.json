@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "name": "Áo Polo nam",
+      "price": 250000,
+      "description": "Áo Polo nam hàng hiệu, chất liệu cotton cao cấp."
+    },
+    {
+      "id": 2,
+      "name": "Váy dài nữ",
+      "price": 350000,
+      "description": "Váy dài nữ thời trang, phong cách mới."
+    },
+    {
+      "id": 3,
+      "name": "Giày thể thao unisex",
+      "price": 180000,
+      "description": "Giày thể thao unisex, phù hợp cho cả nam và nữ."
+    }
+  ]
+  
