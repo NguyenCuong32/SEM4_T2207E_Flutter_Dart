@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bee_shop/models/category.dart';
+import 'package:bee_shop/widgets/new_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +22,14 @@ class _CategoryListState extends State<CategoryList> {
     getCategories();
   }
 
-  void onAddCategoryPress(BuildContext context) {}
+  void onAddCategoryPress(BuildContext context) async {
+    var newItem = await Navigator.of(context)
+        .push(MaterialPageRoute(builder: (ctx) => NewCategory()));
+    if (newItem == null) {
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print('Building ...');
