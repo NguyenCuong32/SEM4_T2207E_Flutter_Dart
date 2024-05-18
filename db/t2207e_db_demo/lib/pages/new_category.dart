@@ -1,18 +1,30 @@
-import 'package:bee_shop/widgets/category.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:t2207e_db_demo/pages/home_page.dart';
 
 class NewCategory extends StatefulWidget {
-  const NewCategory({super.key});
-
   @override
   State<StatefulWidget> createState() => NewCategoryState();
 }
 
 class NewCategoryState extends State<NewCategory> {
+  var ref = FirebaseDatabase.instance.ref();
+  // var _firebase = FirebaseService('categories');
   final _globalKey = GlobalKey<FormState>();
+  String _category_title = '';
+  int _quantity = 0;
   void _saveCategory() {
     if (_globalKey.currentState!.validate()) {
-      Navigator.of(context).pop(const CategoryList());
+      _globalKey.currentState!.save();
+      Map<String, dynamic> category = {
+        'categoryId': 1,
+        'title': _category_title,
+        'quantity': _quantity
+      };
+      ref.child('categories').push().set(category);
+      // _firebase.ref.child('categories').push().set(category);
+      Navigator.of(context).pop(HomePage());
     }
   }
 
@@ -22,8 +34,6 @@ class NewCategoryState extends State<NewCategory> {
 
   @override
   Widget build(BuildContext context) {
-    String _category_name;
-    int _quantity = 0;
     return Scaffold(
       appBar: AppBar(
         title: const Text('New Category'),
@@ -51,7 +61,8 @@ class NewCategoryState extends State<NewCategory> {
                     }
                   },
                   onSaved: (value) {
-                    _category_name = value!;
+                    _category_title = value!;
+                    print('Onsave ${_category_title}');
                   },
                 ),
                 TextFormField(
