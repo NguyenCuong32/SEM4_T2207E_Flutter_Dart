@@ -30,6 +30,22 @@ class _CategoryListState extends State<CategoryList> {
     }
   }
 
+  Future<void> showConfirm(int index) async {
+    var ctg = _categories[index];
+    var categoryTitle = ctg.title;
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Are you sure delete ${categoryTitle}'),
+            actions: [
+              TextButton(onPressed: () {}, child: const Text('OK')),
+              TextButton(onPressed: () {}, child: const Text('Cancel'))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     print('Building ...');
@@ -51,6 +67,10 @@ class _CategoryListState extends State<CategoryList> {
                 title: Text(_categories[index].title),
                 trailing: Text(_categories[index].quantity.toString()),
               ),
+              onDismissed: (direction) {
+                print('Seleted index ${index}');
+                showConfirm(index);
+              },
             )),
       );
     }
@@ -69,7 +89,7 @@ class _CategoryListState extends State<CategoryList> {
   void getCategories() async {
     try {
       const String url =
-          'https://faimockapi.azure-api.net/api/v1/category/getshopcategory';
+          'https://faimockapi.azure-api.net/api/v1/category/getshopcategory3333';
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         print(response.body);
